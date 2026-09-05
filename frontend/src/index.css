@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-dark-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
+    background-image: 
+      radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.07) 0%, transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+      linear-gradient(to bottom, #060911, #0a0f1d);
+    min-height: 100vh;
+  }
+
+  /* Custom ergonomic scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0f1d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e294b;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #38bdf8;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-dark-900/70 backdrop-blur-xl border border-white/[0.08] shadow-glass rounded-2xl transition-all duration-300;
+  }
+
+  .glass-panel-interactive {
+    @apply glass-panel hover:border-cyan-500/30 hover:bg-dark-850/80 hover:shadow-glow-cyan;
+  }
+
+  .glass-card {
+    @apply bg-dark-900/60 backdrop-blur-md border border-slate-800/80 rounded-xl p-5 shadow-lg transition-all duration-200;
+  }
+
+  .badge-live {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30;
+  }
+
+  .badge-demo {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-glow-caution animate-pulse-subtle;
+  }
+
+  .badge-unavailable {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60;
+  }
+
+  .metric-value-unavailable {
+    @apply text-slate-500 font-mono tracking-tight text-lg font-medium;
+  }
+}

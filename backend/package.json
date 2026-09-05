@@ -1,0 +1,26 @@
+{
+  "name": "deskcore-backend",
+  "version": "1.0.0",
+  "description": "Secure Node.js / Express backend for NeuroPosture OS DeskCore Smart Chair",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "neuro-posture",
+    "deskcore",
+    "smart-chair",
+    "blynk",
+    "iot",
+    "ergonomics"
+  ],
+  "author": "NeuroPosture OS Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
