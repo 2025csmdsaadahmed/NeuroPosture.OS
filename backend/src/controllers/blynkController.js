@@ -42,12 +42,9 @@ class BlynkController {
         futureExtensions: [
           { key: 'balanceDifference', reservedPin: 'V7', name: 'Balance Difference' },
           { key: 'frontPressure', reservedPin: 'V8', name: 'Front Pressure' },
-          { key: 'fsrFrontLeft', reservedPin: 'V9', name: 'FSR Front Left' },
-          { key: 'fsrFrontRight', reservedPin: 'V10', name: 'FSR Front Right' },
-          { key: 'fsrBackLeft', reservedPin: 'V11', name: 'FSR Back Left' },
-          { key: 'fsrBackRight', reservedPin: 'V12', name: 'FSR Back Right' },
-          { key: 'riskScore', reservedPin: 'V13', name: 'Ergonomic Risk Score' },
-          { key: 'sittingState', reservedPin: 'V14', name: 'Sitting State' }
+          { key: 'fsrBackLeft', reservedPin: 'V9', name: 'FSR Back Left' },
+          { key: 'fsrBackRight', reservedPin: 'V10', name: 'FSR Back Right' },
+          { key: 'postureStatus', reservedPin: 'V6', name: 'Posture Status' }
         ]
       });
     } catch (err) {

@@ -6,6 +6,7 @@
 
 export interface SessionRecord {
   id: string;
+  profileId?: string;
   userName: string;
   userAge: number | string;
   userGender: string;
@@ -30,6 +31,11 @@ export interface SessionRecord {
 const STORAGE_KEY = 'deskcore_sessions';
 const MAX_SESSIONS = 20;
 
+function createSessionId(): string {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+  return `session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
 export function loadSessions(): SessionRecord[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -43,12 +49,18 @@ export function loadSessions(): SessionRecord[] {
 export function saveSession(session: SessionRecord): void {
   try {
     const existing = loadSessions();
+    const nextSession = { ...session, id: session.id || createSessionId() };
     // Prepend new session, keep max limit
-    const updated = [session, ...existing].slice(0, MAX_SESSIONS);
+    const updated = [nextSession, ...existing.filter((item) => item.id !== nextSession.id)].slice(0, MAX_SESSIONS);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   } catch {
     // Silently fail — not critical
   }
+}
+
+export function loadSessionsForProfile(profileId?: string): SessionRecord[] {
+  if (!profileId) return loadSessions();
+  return loadSessions().filter((session) => session.profileId === profileId);
 }
 
 export function clearSessions(): void {

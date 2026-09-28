@@ -35,7 +35,7 @@ export const ChairIllustration: React.FC<ChairIllustrationProps> = ({
   };
 
   return (
-    <div className="relative w-full max-w-lg mx-auto flex flex-col items-center justify-center p-6 bg-dark-900/40 rounded-3xl border border-white/[0.05] shadow-glass backdrop-blur-md overflow-hidden">
+    <div className="relative w-full max-w-2xl mx-auto flex flex-col items-center justify-center p-6 sm:p-8 bg-dark-900/40 rounded-3xl border border-white/[0.05] shadow-glass backdrop-blur-md overflow-hidden">
       {/* Dynamic ambient backdrop glow representing overall posture state */}
       <div
         className="absolute inset-0 transition-all duration-700 pointer-events-none rounded-3xl"
@@ -63,7 +63,7 @@ export const ChairIllustration: React.FC<ChairIllustrationProps> = ({
       </div>
 
       {/* SVG Normal Ergonomic Office Chair Illustration */}
-      <div className="relative w-full max-w-[340px] aspect-[1/1.2] flex items-center justify-center my-2 select-none">
+      <div className="relative w-full max-w-[520px] aspect-[1/1.2] flex items-center justify-center my-3 select-none">
         <svg
           viewBox="0 0 320 400"
           className="w-full h-full drop-shadow-2xl"
@@ -220,11 +220,11 @@ export const ChairIllustration: React.FC<ChairIllustrationProps> = ({
           </span>
         </div>
 
-        {/* Thermal Pin Callout (V0) */}
+        {/* Thermal Pin Callout (V3) */}
         <div className="absolute top-28 left-2 sm:left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-dark-950/90 border border-sky-500/40 shadow-lg text-[11px] text-sky-300 backdrop-blur-md">
           <Thermometer className="w-3 h-3 text-sky-400" />
           <span className="font-semibold font-mono">
-            {bodyTemperature !== null ? `${bodyTemperature} °C` : 'MLX90614: V0'}
+            {bodyTemperature !== null ? `${bodyTemperature} °C` : 'MLX90614: V3'}
           </span>
         </div>
 
@@ -246,7 +246,7 @@ export const ChairIllustration: React.FC<ChairIllustrationProps> = ({
           </div>
         </div>
         <div className="p-2 rounded-xl bg-dark-950/50 border border-slate-800">
-          <div className="text-slate-400 font-medium">IR Body V0</div>
+          <div className="text-slate-400 font-medium">IR Body V3</div>
           <div className="text-sky-400 font-mono font-semibold mt-0.5">
             {bodyTemperature !== null ? `${bodyTemperature} °C` : 'Active'}
           </div>

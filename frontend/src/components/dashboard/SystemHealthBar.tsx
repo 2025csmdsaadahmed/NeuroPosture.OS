@@ -39,7 +39,7 @@ export const SystemHealthBar: React.FC<SystemHealthBarProps> = ({
       description: isDemoMode
         ? 'Blynk Cloud bypassed. Simulated packets used in its place.'
         : blynkConnected
-        ? 'Blynk Cloud REST API responding. Datastreams V0, V2–V6 active.'
+        ? 'Blynk Cloud REST API responding. Datastreams V0–V5 active.'
         : 'No Blynk token set or token is invalid. Add BLYNK_AUTH_TOKEN to backend/.env.'
     },
     {
@@ -114,7 +114,7 @@ export const SystemHealthBar: React.FC<SystemHealthBarProps> = ({
       </div>
 
       {/* Health Items Grid — expanded layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {healthItems.map((item) => {
           const Icon = item.icon;
           return (

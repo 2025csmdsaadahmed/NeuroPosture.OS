@@ -6,13 +6,15 @@ import { CheckCircle2, AlertTriangle, AlertOctagon, HelpCircle, Activity } from 
 
 interface PostureStatusPanelProps {
   postureStatus: string | null;
+  riskScore?: number | null;
   isDemoMode?: boolean;
 }
 
 export const PostureStatusPanel: React.FC<PostureStatusPanelProps> = ({
-  postureStatus
+  postureStatus,
+  riskScore = null
 }) => {
-  const level = getPostureLevel(postureStatus);
+  const level = getPostureLevel(postureStatus ?? (riskScore !== null ? String(riskScore) : null));
 
   const configs = {
     optimal: {
@@ -57,7 +59,7 @@ export const PostureStatusPanel: React.FC<PostureStatusPanelProps> = ({
       glow: 'none' as const,
       icon: HelpCircle,
       iconColor: 'text-slate-400',
-      advice: 'Waiting for posture status classification packet from Blynk Cloud datastream V3.'
+      advice: 'Waiting for posture status or risk score telemetry from the connected device.'
     }
   };
 
@@ -77,7 +79,7 @@ export const PostureStatusPanel: React.FC<PostureStatusPanelProps> = ({
             <div className="flex items-center gap-2 mb-1">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5 text-cyan-400" />
-                CURRENT POSTURE (BLYNK V3)
+                CURRENT ERGONOMIC RISK (BLYNK V5)
               </span>
               <Badge variant={current.badgeVariant}>
                 {current.badgeText}
@@ -85,7 +87,7 @@ export const PostureStatusPanel: React.FC<PostureStatusPanelProps> = ({
             </div>
 
             <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white">
-              {postureStatus || 'Waiting for Telemetry...'}
+              {postureStatus || (riskScore !== null ? `Risk Score ${riskScore}/100` : 'Waiting for Telemetry...')}
             </h2>
           </div>
         </div>

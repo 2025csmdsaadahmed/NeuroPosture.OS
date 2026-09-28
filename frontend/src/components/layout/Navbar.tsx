@@ -24,36 +24,36 @@ export const Navbar: React.FC<NavbarProps> = ({
   secondsAgo
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/[0.06] bg-dark-950/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-dark-950/85 backdrop-blur-2xl">
+      <div className="w-full pl-20 pr-4 sm:pr-8 lg:pr-10 2xl:pr-12">
+        <div className="flex items-center justify-between min-h-20 py-3 gap-3">
           {/* Brand & Titles */}
           <div className="flex items-center gap-3.5">
-            <div className="flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 p-0.5 shadow-glow-cyan">
+            <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-300 via-cyan-500 to-blue-600 p-px shadow-glow-cyan">
               <div className="w-full h-full bg-dark-950 rounded-[14px] flex items-center justify-center">
                 <Activity className="w-5 h-5 text-cyan-400 animate-pulse-subtle" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold tracking-wider text-base text-white">
+                <span className="font-display font-bold tracking-[0.14em] text-sm sm:text-base text-white">
                   NEUROPOSTURE OS
                 </span>
                 <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
                   DESKCORE
                 </span>
               </div>
-              <p className="text-xs font-medium text-slate-400 tracking-wide">
+              <p className="text-[10px] sm:text-xs font-medium text-slate-500 tracking-[0.16em] uppercase">
                 SMART CHAIR MONITORING
               </p>
             </div>
           </div>
 
           {/* Center Connection Status Pills */}
-          <div className="hidden md:flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2.5">
             {/* DeskCore Status Indicator */}
             <div
-              className={`flex items-center gap-2 px-3 py-1 rounded-full border text-xs ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs ${
                 isDemoMode
                   ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
                   : blynkConnected
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Blynk Cloud Connection */}
             <div
-              className={`flex items-center gap-2 px-3 py-1 rounded-full border text-xs ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs ${
                 isDemoMode
                   ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
                   : blynkConnected
@@ -116,11 +116,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Actions: Demo Mode toggle, Mapping, User Profile */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="ml-auto flex items-center gap-2 sm:gap-3">
             {/* Demo Mode Toggle */}
             <button
               onClick={onToggleDemoMode}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition shadow-sm ${
+              className={`flex items-center gap-2 px-2.5 sm:px-3 py-2 rounded-xl border text-[10px] sm:text-xs font-semibold transition shadow-sm ${
                 isDemoMode
                   ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-glow-caution'
                   : 'bg-dark-900/90 text-slate-400 border-slate-700 hover:text-slate-200 hover:border-slate-600'
@@ -128,13 +128,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               title="Toggle simulated telemetry for UI evaluation"
             >
               <span className={`w-2 h-2 rounded-full ${isDemoMode ? 'bg-amber-400 animate-ping' : 'bg-slate-500'}`} />
-              <span>DEMO MODE: {isDemoMode ? 'ON' : 'OFF'}</span>
+              <span className="hidden sm:inline">DEMO MODE: {isDemoMode ? 'ON' : 'OFF'}</span>
+              <span className="sm:hidden">DEMO</span>
             </button>
 
             {/* Data Mapping Inspector Trigger */}
             <button
               onClick={onOpenMapping}
-              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-dark-900 border border-transparent hover:border-slate-700 rounded-xl transition"
+              className="p-2.5 text-slate-400 hover:text-cyan-400 hover:bg-dark-900 border border-transparent hover:border-slate-700 rounded-xl transition"
               title="Inspect Blynk Datastream Mapping"
             >
               <Sliders className="w-4 h-4" />
@@ -143,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* User Greeting & Profile modal trigger */}
             <button
               onClick={onOpenProfile}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-dark-900 border border-slate-800 hover:border-cyan-500/40 hover:bg-dark-850 transition text-left"
+              className="flex items-center gap-2.5 px-2.5 sm:px-3 py-2 rounded-xl bg-dark-900/90 border border-slate-800 hover:border-cyan-500/40 hover:bg-dark-850 transition text-left"
             >
               <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
                 <User className="w-3.5 h-3.5" />

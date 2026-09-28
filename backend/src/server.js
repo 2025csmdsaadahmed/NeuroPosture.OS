@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
 
 const PORT = BLYNK_CONFIG.port || 5001;
 
-app.listen(PORT, () => {
+app.listen(PORT, '127.0.0.1', () => {
   console.log(`=======================================================`);
   console.log(` NEUROPOSTURE OS: DESKCORE BACKEND`);
   console.log(` Server running on http://localhost:${PORT}`);

@@ -3,15 +3,20 @@ import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
 import { LiveSensorChart } from '../components/charts/LiveSensorChart';
 import type { HistoricalDataPoint } from '../types/blynk';
-import { LineChart, Lock } from 'lucide-react';
+import type { UserProfile } from '../types/user';
+import { LineChart, Lock, Clock, User } from 'lucide-react';
+import { loadCurrentProfile } from '../services/profileStorage';
+import { loadSessionsForProfile, loadSessions, formatDuration } from '../services/sessionStorage';
 
 interface AnalyticsPageProps {
   history: HistoricalDataPoint[];
+  userProfile?: UserProfile | null;
   isDemoMode: boolean;
 }
 
 export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
   history,
+  userProfile,
   isDemoMode
 }) => {
   const hasSessionData = history.length > 0;
@@ -29,6 +34,8 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
   const optimalCount = history.filter((h) => h.postureStatus && h.postureStatus.includes('Optimal')).length;
   const cautionCount = history.filter((h) => h.postureStatus && h.postureStatus.includes('CAUTION')).length;
   const criticalCount = history.filter((h) => h.postureStatus && h.postureStatus.includes('CRITICAL')).length;
+  const currentProfile = loadCurrentProfile();
+  const scopedSessions = currentProfile?.id ? loadSessionsForProfile(currentProfile.id) : loadSessions();
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -42,7 +49,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             </h1>
           </div>
           <p className="text-xs text-slate-400">
-            Historical logging of active Blynk datastreams across current session
+            {userProfile?.fullName ? `${userProfile.fullName}'s posture performance across active Blynk datastreams` : 'Historical logging of active Blynk datastreams across current session'}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -54,6 +61,44 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
           </span>
         </div>
       </div>
+
+      <Card>
+        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4 text-cyan-400" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+              CAPTURED LOGIN SESSIONS
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono text-slate-500">
+            {currentProfile?.fullName ? `Tracking ${currentProfile.fullName}` : 'Tracking all users'}
+          </span>
+        </div>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+          {scopedSessions.slice(0, 4).map((session) => (
+            <div key={session.id} className="rounded-2xl border border-slate-800 bg-dark-900/70 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-sm font-bold text-white">{session.userName}</div>
+                  <div className="text-[11px] text-slate-500 font-mono">Profile session</div>
+                </div>
+                <Badge variant={session.summary.isDemoMode ? 'demo' : 'live'}>
+                  {session.summary.isDemoMode ? 'DEMO' : 'LIVE'}
+                </Badge>
+              </div>
+              <div className="mt-3 flex items-center gap-4 text-[11px] text-slate-400 font-mono">
+                <span className="inline-flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{session.sessionDate} {session.loginTime}</span>
+                <span>{formatDuration(session.durationSeconds)}</span>
+              </div>
+            </div>
+          ))}
+          {scopedSessions.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-slate-800 bg-dark-900/40 p-6 text-center text-xs text-slate-500">
+              No sign-in sessions have been captured yet.
+            </div>
+          )}
+        </div>
+      </Card>
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -27,14 +27,14 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {/* 1. ENVIRONMENT TEMPERATURE (Live V4) */}
+      {/* 1. ENVIRONMENT TEMPERATURE (not in current mapping) */}
       <Card>
         <div className="flex items-start justify-between">
           <div className="p-2 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400">
             <Sun className="w-4 h-4" />
           </div>
           <Badge variant={envTempFormatted.isAvailable ? 'live' : 'unavailable'}>
-            {envTempFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V4') : 'NO SIGNAL'}
+            {envTempFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE') : 'NO SIGNAL'}
           </Badge>
         </div>
 
@@ -55,18 +55,18 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
         </div>
 
         <div className="mt-2 text-[10px] text-slate-500">
-          Source: Blynk V4 (DHT22 Sensor)
+          Source: Not present in current Blynk mapping
         </div>
       </Card>
 
-      {/* 2. HUMIDITY (Live V5) */}
+      {/* 2. HUMIDITY (Live V4) */}
       <Card>
         <div className="flex items-start justify-between">
           <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400">
             <CloudRain className="w-4 h-4" />
           </div>
           <Badge variant={humidityFormatted.isAvailable ? 'live' : 'unavailable'}>
-            {humidityFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V5') : 'NO SIGNAL'}
+            {humidityFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V4') : 'NO SIGNAL'}
           </Badge>
         </div>
 
@@ -87,18 +87,18 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
         </div>
 
         <div className="mt-2 text-[10px] text-slate-500">
-          Source: Blynk V5 (DHT22 Sensor)
+          Source: Blynk V4 (Humidity)
         </div>
       </Card>
 
-      {/* 3. STRESS INDEX (Live V6) */}
+      {/* 3. STRESS INDEX (not in current mapping) */}
       <Card>
         <div className="flex items-start justify-between">
           <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400">
             <Zap className="w-4 h-4" />
           </div>
           <Badge variant={stressFormatted.isAvailable ? 'live' : 'unavailable'}>
-            {stressFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V6') : 'NO SIGNAL'}
+            {stressFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE') : 'NO SIGNAL'}
           </Badge>
         </div>
 
@@ -123,17 +123,17 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
         </div>
       </Card>
 
-      {/* 4. RISK SCORE (Current firmware does NOT send Risk Score. Must show DATA NOT AVAILABLE) */}
+      {/* 4. RISK SCORE (Live V5) */}
       <Card>
         <div className="flex items-start justify-between">
           <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400">
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div className="flex items-center gap-1.5">
-            <Badge variant={riskFormatted.isAvailable && isDemoMode ? 'demo' : 'unavailable'}>
-              {riskFormatted.isAvailable && isDemoMode ? 'DEMO V13' : 'FUTURE V13'}
+            <Badge variant={riskFormatted.isAvailable ? (isDemoMode ? 'demo' : 'live') : 'unavailable'}>
+              {riskFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V5') : 'NO SIGNAL'}
             </Badge>
-            <Tooltip content="The current ESP32 firmware does NOT send a Risk Score to Blynk Cloud (V5 is Humidity, not Risk Score). Ready for future V13 stream." />
+            <Tooltip content="Risk Score is transmitted by the current device on Blynk V5." />
           </div>
         </div>
 
@@ -145,7 +145,7 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
             RISK SCORE
           </div>
           <div className="mt-2 text-2xl font-bold font-mono">
-            {riskFormatted.isAvailable && isDemoMode ? (
+            {riskFormatted.isAvailable ? (
               <span className="text-amber-300">{riskFormatted.display}</span>
             ) : (
               <span className="text-sm font-semibold text-slate-500">DATA NOT AVAILABLE</span>
@@ -154,7 +154,7 @@ export const SecondaryMetricCards: React.FC<SecondaryMetricCardsProps> = ({
         </div>
 
         <div className="mt-2 text-[10px] text-slate-500">
-          Reserved for future Blynk V13 datastream
+          Source: Blynk V5 (Risk Score)
         </div>
       </Card>
     </div>

@@ -14,22 +14,20 @@ export const DataMappingModal: React.FC<DataMappingModalProps> = ({
   if (!isOpen) return null;
 
   const currentMappings = [
-    { key: 'bodyTemperature', pin: 'V0', label: 'Body Temperature', hardware: 'MLX90614 Infrared', live: true },
-    { key: 'distance', pin: 'V2', label: 'Head / Body Distance', hardware: 'HC-SR04 Ultrasonic', live: true },
-    { key: 'postureStatus', pin: 'V3', label: 'Posture Status', hardware: 'ESP32 State Engine', live: true },
-    { key: 'environmentTemperature', pin: 'V4', label: 'Environment Temperature', hardware: 'DHT22 Sensor', live: true },
-    { key: 'humidity', pin: 'V5', label: 'Relative Humidity', hardware: 'DHT22 Sensor', live: true },
-    { key: 'stressIndex', pin: 'V6', label: 'Stress Index', hardware: 'Bio-environmental calculation', live: true },
+    { key: 'fsrFrontLeft', pin: 'V0', label: 'FSR Left', hardware: 'Left FSR pressure sensor', live: true },
+    { key: 'fsrFrontRight', pin: 'V1', label: 'FSR Right', hardware: 'Right FSR pressure sensor', live: true },
+    { key: 'distance', pin: 'V2', label: 'Head Distance', hardware: 'HC-SR04 Ultrasonic', live: true },
+    { key: 'bodyTemperature', pin: 'V3', label: 'Body Temperature', hardware: 'MLX90614 Infrared', live: true },
+    { key: 'humidity', pin: 'V4', label: 'Humidity', hardware: 'Humidity sensor', live: true },
+    { key: 'riskScore', pin: 'V5', label: 'Risk Score', hardware: 'ESP32 risk calculation', live: true },
   ];
 
   const futureMappings = [
-    { key: 'balanceDifference', pin: 'V7 (Reserved)', label: 'Balance Difference', note: 'Calculated locally on ESP32; awaiting firmware Blynk.virtualWrite', hardware: '4x FSRs' },
-    { key: 'frontPressure', pin: 'V8 (Reserved)', label: 'Total Front Pressure', note: 'Calculated locally on ESP32; awaiting firmware Blynk.virtualWrite', hardware: '2x Front FSRs' },
-    { key: 'fsrFrontLeft', pin: 'V9 (Reserved)', label: 'FSR Front Left', note: 'Firmware reads ADC; awaiting virtual write', hardware: 'Front Left FSR' },
-    { key: 'fsrFrontRight', pin: 'V10 (Reserved)', label: 'FSR Front Right', note: 'Firmware reads ADC; awaiting virtual write', hardware: 'Front Right FSR' },
-    { key: 'fsrBackLeft', pin: 'V11 (Reserved)', label: 'FSR Back Left', note: 'Firmware reads ADC; awaiting virtual write', hardware: 'Back Left FSR' },
-    { key: 'fsrBackRight', pin: 'V12 (Reserved)', label: 'FSR Back Right', note: 'Firmware reads ADC; awaiting virtual write', hardware: 'Back Right FSR' },
-    { key: 'riskScore', pin: 'V13 (Reserved)', label: 'Ergonomic Risk Score', note: 'Reserved for cloud/edge model computation', hardware: 'Analytics Engine' },
+    { key: 'balanceDifference', pin: 'V7 (Reserved)', label: 'Balance Difference', note: 'Calculated locally on ESP32; awaiting firmware Blynk.virtualWrite', hardware: 'FSR calculation' },
+    { key: 'frontPressure', pin: 'V8 (Reserved)', label: 'Total Front Pressure', note: 'Calculated locally on ESP32; awaiting firmware Blynk.virtualWrite', hardware: 'FSR calculation' },
+    { key: 'fsrBackLeft', pin: 'V9 (Reserved)', label: 'FSR Back Left', note: 'Not included in the current device mapping', hardware: 'Back left FSR' },
+    { key: 'fsrBackRight', pin: 'V10 (Reserved)', label: 'FSR Back Right', note: 'Not included in the current device mapping', hardware: 'Back right FSR' },
+    { key: 'postureStatus', pin: 'V6 (Reserved)', label: 'Posture Status', note: 'Not included in the current device mapping', hardware: 'ESP32 state engine' },
   ];
 
   return (

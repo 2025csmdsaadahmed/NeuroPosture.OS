@@ -150,7 +150,7 @@ export const PrimaryMetricCards: React.FC<PrimaryMetricCardsProps> = ({
         </div>
       </Card>
 
-      {/* 4. BODY TEMP (Real Live Blynk V0) */}
+      {/* 4. BODY TEMP (Real Live Blynk V3) */}
       <Card className="relative overflow-hidden group">
         <div className="flex items-start justify-between">
           <div className="p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400">
@@ -158,9 +158,9 @@ export const PrimaryMetricCards: React.FC<PrimaryMetricCardsProps> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <Badge variant={tempFormatted.isAvailable ? 'live' : 'unavailable'}>
-              {tempFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V0') : 'NO SIGNAL'}
+              {tempFormatted.isAvailable ? (isDemoMode ? 'DEMO' : 'LIVE V3') : 'NO SIGNAL'}
             </Badge>
-            <Tooltip content="Infrared body surface temperature measured by MLX90614 sensor. Telemetry received via Blynk V0." />
+            <Tooltip content="Infrared body surface temperature measured by MLX90614 sensor. Telemetry received via Blynk V3." />
           </div>
         </div>
 

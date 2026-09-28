@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
-import { loadSessions, clearSessions, formatDuration, type SessionRecord } from '../services/sessionStorage';
+import { loadSessions, loadSessionsForProfile, clearSessions, formatDuration, type SessionRecord } from '../services/sessionStorage';
+import { loadCurrentProfile } from '../services/profileStorage';
 import {
   Clock, Calendar, User, ChevronRight, Trash2, Activity,
   Thermometer, Droplets, Zap, AlertCircle, CheckCircle2, Info
 } from 'lucide-react';
 
 export const PreviousSessionsPage: React.FC = () => {
+  const [currentProfile] = useState(() => loadCurrentProfile());
   const [sessions, setSessions] = useState<SessionRecord[]>(() => loadSessions());
   const [selected, setSelected] = useState<SessionRecord | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [viewMode, setViewMode] = useState<'all' | 'current'>('current');
 
   const handleClear = () => {
     clearSessions();
@@ -18,6 +21,8 @@ export const PreviousSessionsPage: React.FC = () => {
     setSelected(null);
     setShowClearConfirm(false);
   };
+
+  const activeSessions = viewMode === 'current' && currentProfile?.id ? loadSessionsForProfile(currentProfile.id) : sessions;
 
   const postureTotal = (s: SessionRecord) =>
     s.summary.optimalPostureCount + s.summary.cautionPostureCount + s.summary.criticalPostureCount;
@@ -35,7 +40,7 @@ export const PreviousSessionsPage: React.FC = () => {
             <h1 className="text-lg font-bold text-white tracking-wide">PREVIOUS SESSIONS</h1>
           </div>
           <p className="text-xs text-slate-400">
-            Stored locally on your device • {sessions.length} session{sessions.length !== 1 ? 's' : ''} recorded
+            Stored locally on your device • {activeSessions.length} session{activeSessions.length !== 1 ? 's' : ''} recorded
           </p>
         </div>
         {sessions.length > 0 && (
@@ -69,7 +74,30 @@ export const PreviousSessionsPage: React.FC = () => {
         )}
       </div>
 
-      {sessions.length === 0 ? (
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setViewMode('current')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition ${
+            viewMode === 'current'
+              ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+              : 'bg-dark-900 text-slate-400 border-slate-800'
+          }`}
+        >
+          Current user
+        </button>
+        <button
+          onClick={() => setViewMode('all')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition ${
+            viewMode === 'all'
+              ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+              : 'bg-dark-900 text-slate-400 border-slate-800'
+          }`}
+        >
+          All users
+        </button>
+      </div>
+
+      {activeSessions.length === 0 ? (
         /* Empty State */
         <Card>
           <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
@@ -96,7 +124,7 @@ export const PreviousSessionsPage: React.FC = () => {
             <div className="text-[11px] uppercase tracking-wider text-slate-500 font-bold px-1 mb-1">
               Session History
             </div>
-            {sessions.map((session) => {
+            {activeSessions.map((session) => {
               const isSelected = selected?.id === session.id;
               const total = postureTotal(session);
               const optPct = posturePercent(session.summary.optimalPostureCount, total);

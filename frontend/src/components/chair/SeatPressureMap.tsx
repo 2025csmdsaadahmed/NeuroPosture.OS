@@ -7,16 +7,12 @@ import { Disc, Layers } from 'lucide-react';
 interface SeatPressureMapProps {
   fsrFrontLeft: number | null;
   fsrFrontRight: number | null;
-  fsrBackLeft: number | null;
-  fsrBackRight: number | null;
   isDemoMode?: boolean;
 }
 
 export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
   fsrFrontLeft,
   fsrFrontRight,
-  fsrBackLeft,
-  fsrBackRight,
   isDemoMode = false
 }) => {
   const quadrants = [
@@ -24,33 +20,33 @@ export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
       id: 'back-left',
       name: 'BACK LEFT',
       short: 'BL',
-      val: fsrBackLeft,
+      val: null,
       reservedPin: 'V11',
-      desc: 'Rear left thigh/ischial zone'
+      desc: 'Not connected in current Blynk mapping'
     },
     {
       id: 'back-right',
       name: 'BACK RIGHT',
       short: 'BR',
-      val: fsrBackRight,
+      val: null,
       reservedPin: 'V12',
-      desc: 'Rear right thigh/ischial zone'
+      desc: 'Not connected in current Blynk mapping'
     },
     {
-      id: 'front-left',
-      name: 'FRONT LEFT',
-      short: 'FL',
+      id: 'left',
+      name: 'FSR LEFT',
+      short: 'L',
       val: fsrFrontLeft,
-      reservedPin: 'V9',
-      desc: 'Front left thigh support zone'
+      reservedPin: 'V0',
+      desc: 'Left seat pressure sensor'
     },
     {
-      id: 'front-right',
-      name: 'FRONT RIGHT',
-      short: 'FR',
+      id: 'right',
+      name: 'FSR RIGHT',
+      short: 'R',
       val: fsrFrontRight,
-      reservedPin: 'V10',
-      desc: 'Front right thigh support zone'
+      reservedPin: 'V1',
+      desc: 'Right seat pressure sensor'
     }
   ];
 
@@ -69,10 +65,10 @@ export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
             {isDemoMode ? (
               <Badge variant="demo">DEMO ACTIVE</Badge>
             ) : (
-              <Badge variant="unavailable">Awaiting V9–V12</Badge>
+              <Badge variant="live">V0–V1 ACTIVE</Badge>
             )}
             <Tooltip
-              content="The ESP32 reads 4 analog FSR pins locally (valFL, valFR, valBL, valBR) to calculate balance and front pressure, but currently does not transmit raw quadrant telemetry to Blynk Cloud."
+              content="The current device transmits two FSR readings: left on V0 and right on V1."
             />
           </div>
         </div>
@@ -82,21 +78,21 @@ export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
         </p>
 
         {/* 4 Quadrants Grid */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
           {quadrants.map((q) => {
             const hasData = q.val !== null && q.val !== undefined;
 
             return (
               <div
                 key={q.id}
-                className={`p-3.5 rounded-xl border transition-all flex flex-col justify-between min-h-[90px] ${
+                className={`p-3 rounded-xl border transition-all flex flex-col justify-between min-h-[112px] ${
                   hasData
                     ? 'bg-dark-850/80 border-cyan-500/30'
                     : 'bg-dark-900/50 border-slate-800/80'
                 }`}
               >
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="font-bold text-slate-300 flex items-center gap-1">
+                  <span className="font-bold text-slate-300 flex items-center gap-1 text-[10px] xl:text-[11px]">
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/60" />
                     {q.name}
                   </span>
@@ -107,7 +103,7 @@ export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
 
                 <div className="my-1">
                   {hasData ? (
-                    <div className="text-xl font-bold font-mono text-cyan-300">
+                    <div className="text-lg xl:text-xl font-bold font-mono text-cyan-300">
                       {q.val}{' '}
                       <span className="text-[11px] text-slate-400 font-normal">pts</span>
                     </div>
@@ -134,7 +130,7 @@ export const SeatPressureMap: React.FC<SeatPressureMapProps> = ({
           <span>FSR Telemetry Flow:</span>
         </span>
         <span className="text-slate-500 font-mono">
-          {isDemoMode ? 'Simulated Telemetry' : 'Calculated on ESP32 • Not in Blynk'}
+          {isDemoMode ? 'Simulated Telemetry' : 'Blynk V0 / V1'}
         </span>
       </div>
     </Card>

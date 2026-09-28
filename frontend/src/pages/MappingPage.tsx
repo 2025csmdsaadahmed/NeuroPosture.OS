@@ -5,12 +5,12 @@ import { Layers, Terminal, CheckCircle2, Clock } from 'lucide-react';
 
 export const MappingPage: React.FC = () => {
   const currentMappings = [
-    { pin: 'V0', name: 'Body Temperature', hardware: 'MLX90614 Infrared', code: 'Blynk.virtualWrite(V0, bodyTemp);', status: 'ACTIVE LIVE' },
-    { pin: 'V2', name: 'Head / Body Distance', hardware: 'HC-SR04 Ultrasonic', code: 'Blynk.virtualWrite(V2, distanceCm);', status: 'ACTIVE LIVE' },
-    { pin: 'V3', name: 'Posture Status', hardware: 'ESP32 State Engine', code: 'Blynk.virtualWrite(V3, ...);', status: 'ACTIVE LIVE' },
-    { pin: 'V4', name: 'Environment Temperature', hardware: 'DHT22 Sensor', code: 'Blynk.virtualWrite(V4, temperature);', status: 'ACTIVE LIVE' },
-    { pin: 'V5', name: 'Humidity', hardware: 'DHT22 Sensor', code: 'Blynk.virtualWrite(V5, humidity);', status: 'ACTIVE LIVE' },
-    { pin: 'V6', name: 'Stress Index', hardware: 'ESP32 Bio Algorithm', code: 'Blynk.virtualWrite(V6, stressLevel);', status: 'ACTIVE LIVE' },
+    { pin: 'V0', name: 'FSR Left', hardware: 'Left FSR pressure sensor', code: 'Blynk.virtualWrite(V0, fsrLeft);', status: 'ACTIVE LIVE' },
+    { pin: 'V1', name: 'FSR Right', hardware: 'Right FSR pressure sensor', code: 'Blynk.virtualWrite(V1, fsrRight);', status: 'ACTIVE LIVE' },
+    { pin: 'V2', name: 'Head Distance', hardware: 'HC-SR04 Ultrasonic', code: 'Blynk.virtualWrite(V2, distanceCm);', status: 'ACTIVE LIVE' },
+    { pin: 'V3', name: 'Body Temperature', hardware: 'MLX90614 Infrared', code: 'Blynk.virtualWrite(V3, bodyTemp);', status: 'ACTIVE LIVE' },
+    { pin: 'V4', name: 'Humidity', hardware: 'Humidity sensor', code: 'Blynk.virtualWrite(V4, humidity);', status: 'ACTIVE LIVE' },
+    { pin: 'V5', name: 'Risk Score', hardware: 'ESP32 risk calculation', code: 'Blynk.virtualWrite(V5, riskScore);', status: 'ACTIVE LIVE' },
   ];
 
   const localOnly = [
@@ -89,7 +89,7 @@ export const MappingPage: React.FC = () => {
               CALCULATED ON ESP32 BUT NOT TRANSMITTED TO BLYNK (READY FOR V2)
             </h3>
           </div>
-          <Badge variant="unavailable">Awaiting V7–V13</Badge>
+          <Badge variant="unavailable">Awaiting additional pins</Badge>
         </div>
 
         <div className="overflow-x-auto">

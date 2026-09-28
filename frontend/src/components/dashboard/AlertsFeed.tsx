@@ -14,11 +14,13 @@ interface AlertItem {
 
 interface AlertsFeedProps {
   postureStatus: string | null;
+  riskScore: number | null;
   stressIndex: number | null;
 }
 
 export const AlertsFeed: React.FC<AlertsFeedProps> = ({
   postureStatus,
+  riskScore,
   stressIndex
 }) => {
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
@@ -68,6 +70,30 @@ export const AlertsFeed: React.FC<AlertsFeedProps> = ({
       });
     }
   }, [postureStatus]);
+
+  useEffect(() => {
+    if (riskScore === null || postureStatus) return;
+
+    const level = getPostureLevel(String(riskScore));
+    if (level === 'unknown') return;
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const riskAlert: AlertItem = {
+      id: `risk-${Date.now()}`,
+      type: level,
+      title: level === 'critical'
+        ? 'CRITICAL: Ergonomic Risk'
+        : level === 'caution'
+        ? 'CAUTION: Elevated Risk'
+        : 'Risk Score Normal',
+      message: `Current ergonomic risk score is ${riskScore.toFixed(0)}/100.`,
+      timestamp: now
+    };
+
+    setAlerts((prev) => {
+      if (prev.length > 0 && prev[0].title === riskAlert.title) return prev;
+      return [riskAlert, ...prev.slice(0, 5)];
+    });
+  }, [postureStatus, riskScore]);
 
   // Check stress threshold alert
   useEffect(() => {
@@ -154,7 +180,7 @@ export const AlertsFeed: React.FC<AlertsFeedProps> = ({
       </div>
 
       <div className="mt-4 pt-3 border-t border-slate-800/60 text-[11px] text-slate-500 text-center">
-        Derived directly from Blynk stream V3 and ESP32 telemetry
+        Derived directly from Blynk risk stream V5 and ESP32 telemetry
       </div>
     </Card>
   );

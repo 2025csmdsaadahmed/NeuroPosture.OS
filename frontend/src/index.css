@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,11 +11,14 @@
 
   body {
     @apply bg-dark-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
-    background-image: 
-      radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.07) 0%, transparent 45%),
-      radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
-      linear-gradient(to bottom, #060911, #0a0f1d);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+      radial-gradient(circle at 12% 0%, rgba(0, 242, 254, 0.11) 0%, transparent 30%),
+      radial-gradient(circle at 100% 18%, rgba(79, 172, 254, 0.09) 0%, transparent 28%),
+      linear-gradient(to bottom, #060911, #090e1a 58%, #060911);
+    background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    background-attachment: fixed;
     min-height: 100vh;
   }
 
@@ -39,6 +42,7 @@
 @layer components {
   .glass-panel {
     @apply bg-dark-900/70 backdrop-blur-xl border border-white/[0.08] shadow-glass rounded-2xl transition-all duration-300;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.035), 0 18px 48px rgba(0,0,0,0.22);
   }
 
   .glass-panel-interactive {
@@ -47,6 +51,11 @@
 
   .glass-card {
     @apply bg-dark-900/60 backdrop-blur-md border border-slate-800/80 rounded-xl p-5 shadow-lg transition-all duration-200;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.025), 0 12px 32px rgba(0,0,0,0.18);
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500;
   }
 
   .badge-live {

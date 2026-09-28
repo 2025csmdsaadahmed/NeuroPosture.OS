@@ -21,7 +21,11 @@ export function formatMetric(
 }
 
 /**
- * Classify posture status string from ESP32
+ * Classify the posture value from ESP32.
+ *
+ * Older firmware sends descriptive text, while the currently connected
+ * device sends a numeric V3 posture score (for example, "20"). Keep both
+ * protocols compatible so a valid numeric reading does not look offline.
  */
 export function getPostureLevel(status: string | null | undefined): PostureLevel {
   if (!status) return 'unknown';
@@ -35,6 +39,14 @@ export function getPostureLevel(status: string | null | undefined): PostureLevel
   if (lower.includes('optimal') || lower.includes('good')) {
     return 'optimal';
   }
+
+  const numericScore = Number(status);
+  if (Number.isFinite(numericScore)) {
+    if (numericScore <= 30) return 'optimal';
+    if (numericScore <= 60) return 'caution';
+    return 'critical';
+  }
+
   return 'unknown';
 }
 
