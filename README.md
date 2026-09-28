@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # NEUROPOSTURE OS: DESKCORE — SMART CHAIR
 
 A production-grade, real-time IoT ergonomic monitoring web application for the **DeskCore Smart Chair** system.
@@ -229,3 +230,7 @@ chair/
 ├── .gitignore
 └── README.md
 ```
+=======
+# NeuroPosture.OS
+NeuroPosture OS: An AI-Enabled Personal Health Companion for Resilient Health Monitoring​
+>>>>>>> 2982a2e514ca9581f83a2f7fdfe18e1525c9bbe3
