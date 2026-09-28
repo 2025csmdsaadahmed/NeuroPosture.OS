@@ -233,4 +233,4 @@ chair/
 =======
 # NeuroPosture.OS
 NeuroPosture OS: An AI-Enabled Personal Health Companion for Resilient Health Monitoring​
->>>>>>> 2982a2e514ca9581f83a2f7fdfe18e1525c9bbe3
+-----
